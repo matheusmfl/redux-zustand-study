@@ -1,3 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createSlice } from '@reduxjs/toolkit'
 
-export const store = configureStore()
+const todoSlice = createSlice({
+  name: 'todo',
+  initialState: ['fazer café', 'estudar reduce', 'Estudar mais'],
+  reducers: {},
+})
+export const store = configureStore({
+  reducer: {
+    todo: todoSlice.reducer,
+  },
+})
