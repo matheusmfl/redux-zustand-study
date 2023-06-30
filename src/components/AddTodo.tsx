@@ -10,9 +10,10 @@ export function AddTodo() {
   function handleNewTodo(e: FormEvent) {
     e.preventDefault()
     dispatch(add(newTodo))
+    setNewTodo('')
   }
   return (
-    <form action="" onSubmit={handleNewTodo}>
+    <form action="" onSubmit={handleNewTodo} className="text-black">
       <input
         type="text"
         placeholder="Novo To-Do"
