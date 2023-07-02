@@ -33,6 +33,7 @@ const exampleState: PlayerState = {
   },
   currentModuleIndex: 0,
   currentLessonIndex: 0,
+  isLoading: false,
 }
 
 describe('player slice', () => {
@@ -46,7 +47,7 @@ describe('player slice', () => {
   it('should be able to play next video automatically', () => {
     const state = reducer(exampleState, next())
 
-    expect(state.currentModuleIndex.toEqual(0)
+    expect(state.currentModuleIndex).toEqual(0)
     expect(state.currentLessonIndex).toEqual(1)
   })
 
