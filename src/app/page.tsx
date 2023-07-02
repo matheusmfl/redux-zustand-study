@@ -2,11 +2,22 @@
 import { Header } from '@/components/Header'
 import { Module } from '@/components/Module'
 import { Player } from '@/components/Player'
+import { api } from '@/lib/axios'
 import { useAppSelector } from '@/store'
+import { start } from '@/store/slices/player'
 import { MessageCircle } from 'lucide-react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 export default function Home() {
-  const modules = useAppSelector((state) => state.player.course.modules)
+  const dispatch = useDispatch()
+  const modules = useAppSelector((state) => state.player.course?.modules)
+
+  useEffect(() => {
+    api.get('/course/1').then((response) => {
+      dispatch(start(response.data))
+    })
+  }, [])
 
   return (
     <div className="h-screen bg-zinc-950 text-zinc-50 flex justify-center items-center">
@@ -29,16 +40,17 @@ export default function Home() {
             <Player />
           </div>
           <aside className="w-80 overflow-y-scroll absolute top-0 right-0 bottom-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900">
-            {modules.map((module, index) => {
-              return (
-                <Module
-                  key={index}
-                  moduleIndex={index}
-                  title={module.title}
-                  amountOfLessons={module.lessons.length}
-                />
-              )
-            })}
+            {modules &&
+              modules.map((module, index) => {
+                return (
+                  <Module
+                    key={index}
+                    moduleIndex={index}
+                    title={module.title}
+                    amountOfLessons={module.lessons.length}
+                  />
+                )
+              })}
           </aside>
         </main>
       </div>
