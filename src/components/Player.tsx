@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
+import { useAppDispatch } from '@/store'
 import { next, useCurrentLesson } from '@/store/slices/player'
 import ReactPlayer from 'react-player'
-import { useDispatch } from 'react-redux'
+
 
 export function Player() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const { currentLesson } = useCurrentLesson()
 

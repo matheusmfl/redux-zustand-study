@@ -2,22 +2,18 @@
 import { Header } from '@/components/Header'
 import { Module } from '@/components/Module'
 import { Player } from '@/components/Player'
-import { api } from '@/lib/axios'
-import { useAppSelector } from '@/store'
-import { start } from '@/store/slices/player'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { loadCourse } from '@/store/slices/player'
 import { MessageCircle } from 'lucide-react'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 export default function Home() {
-  const dispatch = useDispatch()
-  const modules = useAppSelector((state) => state.player.course?.modules)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    api.get('/course/1').then((response) => {
-      dispatch(start(response.data))
-    })
+    dispatch(loadCourse())
   }, [])
+  const modules = useAppSelector((state) => state.player.course?.modules)
 
   return (
     <div className="h-screen bg-zinc-950 text-zinc-50 flex justify-center items-center">
